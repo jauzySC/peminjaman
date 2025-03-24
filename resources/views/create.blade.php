@@ -60,17 +60,20 @@
         button {
             width: 100%;
             padding: 12px;
-            background-color: #007BFF;
+            background-color: #222;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
             transition: background-color 0.3s ease;
+            font-family: "Lexend", sans-serif;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #FFF;
+            color:#000;
+            font-family: "Lexend", sans-serif;
         }
 
         button:focus {
@@ -86,6 +89,25 @@
             border-radius: 5px;
             font-size: 14px;
         }
+
+        a.tambah {
+            display: inline-block;
+            text-align: center;
+            background-color: #FFF;
+            padding: 12px;
+            border-radius: 5px;
+            color: black;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            width:95%;
+        }
+
+        a.tambah:hover {
+            background-color: white;
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -94,14 +116,26 @@
 <form action="{{ route('peminjaman.store') }}" method="POST">
     @csrf
     <h2>Peminjaman Form</h2>
+
+
+    @if ($errors->any())
+        <div class="error">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     
     <!-- NISN Field -->
     <label for="nisn">NISN:</label>
-    <select id="nisn" name="nisn" required>
-        @foreach($siswa as $s)
-            <option value="{{ $s->nisn }}">{{ $s->nisn }} - {{ $s->nama_siswa }}</option>
-        @endforeach
-    </select>
+    <!-- In create.blade.php -->
+<select name="nisn" required>
+    @foreach ($siswa as $s)
+      <option value="{{ $s->nisn }}">{{ $s->nisn }} - {{ $s->nama_siswa }}</option>
+    @endforeach
+  </select>
 
     <!-- Barang Field -->
     <label for="id_barang">Barang:</label>
@@ -111,11 +145,12 @@
         @endforeach
     </select>
 
-    <label for="stok">jumlah</label>
-<input type="number">
+    <label for="pengembalian">tanggal pengembalian</label>
+    <input type="date" name="tanggal_pengembalian">
 
     <!-- Submit Button -->
     <button type="submit">Submit</button>
+    <a href="/layanan_peminjaman" class="tambah">batal</a>
 </form>
 
 </body>

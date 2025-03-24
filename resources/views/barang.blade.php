@@ -8,21 +8,12 @@
         @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
         body {
             background-color: black;
-            color:white;
-            font-family:"Lexend", sans-serif;
+            color: white;
+            font-family: "Lexend", sans-serif;
+            margin: 0;
+            padding: 80px 0 0; /* Add top padding for navbar */
         }
-        th{
-            background-color: #222;
-        }
-        tr{
-            background-color: #111;
-        }
-        table{
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-        }
+
         /* Navbar styling */
         ul.navbar {
             list-style-type: none;
@@ -31,9 +22,10 @@
             background-color: #111;
             display: flex;
             justify-content: center;
-            position: sticky;
+            position: fixed;
             top: 0;
             width: 100%;
+            z-index: 1000; /* Ensure navbar stays on top */
         }
 
         ul.navbar li {
@@ -52,16 +44,19 @@
             background-color: white;
             color: black;
         }
-.nav-active{
-    font-weight: bold;
-    background-color: white;
-    color: black;
-}
-.nav-link{
-    color:white;
-}
- /* Table Styling */
- table {
+
+        .nav-active {
+            font-weight: bold;
+            background-color: white;
+            color: black;
+        }
+
+        .nav-link {
+            color: white;
+        }
+
+        /* Table Styling */
+        table {
             margin: 20px auto;
             border-collapse: collapse;
             width: 80%;
@@ -78,6 +73,11 @@
 
         tr {
             background-color: #111;
+        }
+
+        h1 {
+            margin-top: 40px;
+            text-align: center;
         }
     </style>
 </head>

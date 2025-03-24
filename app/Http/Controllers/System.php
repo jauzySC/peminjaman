@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\layanan_barang;
 use App\Models\layanan_siswa;
 use App\Models\layanan_peminjaman;
+use Illuminate\Support\Facades\Log;
 class System extends Controller
 
 {
@@ -18,8 +19,10 @@ class System extends Controller
 $siswa = layanan_siswa::all();
 return view('siswa', compact('siswa'));
     }
-    public function viewPeminjaman(){
-        $peminjaman = layanan_peminjaman::with('barang','siswa')->get();
-        return view('peminjaman',compact('peminjaman'));
-    } 
+    public function viewPeminjaman()
+{
+    $peminjaman = layanan_peminjaman::all();
+    
+    return view('peminjaman', ['peminjaman' => $peminjaman]);
+}
 }

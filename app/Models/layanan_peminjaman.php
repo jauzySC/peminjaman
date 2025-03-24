@@ -4,26 +4,36 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class layanan_peminjaman extends Model
 {
-   use HasFactory;
+    use HasFactory;
 
-   protected $table ='layanan_peminjaman';
-   protected $fillable = ['nisn','id_barang'];
-   protected $primaryKey= 'id_peminjaman';
-   public $incrementing = true;
-   protected $keyType= 'int';
-   
- public $timestamps = false;
+    protected $table = 'layanan_peminjaman';
+    protected $primaryKey = 'id_peminjaman';
 
-   public function barang()
-   {
-    return $this->belongsTo(Layanan_barang::class,'id_barang');
-   }
-   public function siswa()
+    public $timestamps = false;
+    // Define the relationship to layanan_barang
+    public function barang(): BelongsTo
+    {
+        return $this->belongsTo(layanan_barang::class, 'id_barang', 'id_barang');
+    }
+
+    // Define the relationship to layanan_siswa
+    // app/Models/layanan_peminjaman.php
+public function siswa(): BelongsTo
 {
-    return $this->belongsTo(Layanan_siswa::class, 'nisn', 'nisn');
+    return $this->belongsTo(
+        layanan_siswa::class, 
+        'nisn', // foreign key
+        'nisn'  // Primary key
+    );
 }
 
+    protected $fillable = [
+        'nisn', 
+        'id_barang', 
+        'tanggal_pengembalian'
+    ];
 }

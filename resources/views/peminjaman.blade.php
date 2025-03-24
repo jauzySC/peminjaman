@@ -77,6 +77,7 @@
             transition: all 0.3s ease;
             margin-top: 30px;
             margin-bottom: 30px;
+            margin-left: 100px
         }
 
         a.tambah:hover {
@@ -154,7 +155,71 @@
     text-decoration: none;
     display: block;
 }
+h2{
+    text-align: center;
+}
 
+    @media print {
+        /* Hide unnecessary elements */
+        .navbar, .tambah, .btn, h1, .aksi {
+            display: none !important;
+        }
+
+        /* Table styling for print */
+        body {
+            background-color: white !important;
+            color: black !important;
+            print-color-adjust: exact; /* Force color printing */
+        }
+
+        table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+            margin: 0 !important;
+        }
+
+        th {
+            background-color: #2c3e50 !important;
+            color: white !important;
+            -webkit-print-color-adjust: exact;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2 !important;
+            -webkit-print-color-adjust: exact;
+        }
+
+        td, th {
+            border: 1px solid #ddd !important;
+            padding: 12px !important;
+        }
+
+}
+
+.button-container {
+        display: flex;
+        gap: 20px;
+        justify-content: flex-start;
+        margin-left: 100px;
+        margin-top: 100;
+        margin-bottom: 30px;
+    }
+    .print-btn {
+        background-color: #222;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-family: "Lexend", sans-serif;
+        font-weight: 500;
+    }
+    a.print-btn:hover, button.print-btn:hover {
+        background-color: white;
+        color: black;
+    }
 
     </style>
 </head>
@@ -169,11 +234,14 @@
 
     <!-- Title -->
     <h1>Data Peminjaman</h1>
-
     <!-- Tambah Data Button -->
     <a href="{{ route('peminjaman.create') }}" class="tambah">Tambah Data</a>
-
-    <!-- Table -->
+    <div class="button-container">
+    <button onclick="window.print()" class="print-btn">
+        Print Button
+    </button>
+</div>
+  
     <table border="1" cellpadding="10" cellspacing="0">
         <thead>
             <tr>
@@ -189,20 +257,20 @@
         <tbody>
             @foreach ($peminjaman as $item)
                 <tr>
-                    <td>{{ $item->id_peminjaman }}</td>
-                    <td>{{ $item->siswa->nisn}}</td>
-                    <td>{{ $item->siswa->nama_siswa }}</td>
-                    <td>{{ $item->barang->nama_barang }}</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->nisn}}</td>
+                    <td>{{ $item->siswa->nama_siswa ?? 'N/A' }}</td>
+                    <td>{{ $item->barang->nama_barang ?? 'N/A' }}</td>
                     <td>{{ $item->tanggal_peminjaman }}</td>
                     <td>{{$item->tanggal_pengembalian}}</td>
-                    <td class="aksi">
+                    <td class="aksi">   
                         <form action="{{ route('deletePeminjaman', $item->id_peminjaman) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this record?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Kembalikan</button>
                         </form>
                         <button class="edit-button">
-                            <a href="/edit"class="edit-button-link">Edit</a>
+                            <a href="/editPeminjaman/{{ $item->id_peminjaman }}"class="edit-button-link">Edit</a>
                         </button>
                     </td>
                 </tr>

@@ -10,5 +10,7 @@ class layanan_barang extends Model
     use HasFactory;
 
     protected $table = 'layanan_barang';
-    protected $primaryKey = 'id_barang';
+  // app/Models/layanan_barang.php
+protected $primaryKey = 'id_barang';
+protected $fillable = ['nama_barang'];
 }

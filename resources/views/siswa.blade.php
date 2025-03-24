@@ -86,7 +86,6 @@ table {
                 <th>NISN</th>
                 <th>Nama siswa</th>
                 <th>Kelas</th>
-                <th>Jurusan</th>
             </tr>
         </thead>
         <tbody>
@@ -95,7 +94,6 @@ table {
                     <td>{{ $item->nisn }}</td>
                     <td>{{ $item->nama_siswa }}</td>
                     <td>{{$item->kelas}}</td>
-                    <td>{{ $item->nama_jurusan }}</td>
                 </tr>
             @endforeach
         </tbody>

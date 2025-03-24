@@ -23,6 +23,7 @@
             position: sticky;
             top: 0;
             width: 100%;
+            position: relative;
         }
 
         ul.navbar li {
@@ -60,14 +61,50 @@
         .nav-link{
             color: white;
         }
+        .logout-button {
+        font-family: 'Lexend', sans-serif;
+        padding: 14px 20px;
+        display: block;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1em;
+        margin: 0;
+        position: absolute;
+        right: 20px;
+        
+    }
+
+    .logout-button:hover {
+        background-color: white;
+        color: black !important;
+    }
+        
     </style>
 </head>
 <body>
-<ul class="navbar">
-    <li><a href="{{route('welcome')}}" class="nav-active">home</a></li>
-        <li><a href="/layanan_siswa" class="nav-link">Siswa</a></li>
-        <li><a href="/layanan_barang" class="nav-link">Barang</a></li>
-        <li><a href="/layanan_peminjaman"class="nav-link">peminjaman</a></li>
+    <ul class="navbar">
+        <li><a href="{{ route('welcome') }}" class="{{ request()->is('welcome') ? 'nav-active' : '' }}">Home</a></li>
+        
+        @auth <!-- Show these links ONLY if user is logged in -->
+            <li><a href="/layanan_siswa" class="nav-link">Siswa</a></li>
+            <li><a href="/layanan_barang" class="nav-link">Barang</a></li>
+            <li><a href="/layanan_peminjaman" class="nav-link">Peminjaman</a></li>
+            <li>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="logout-button" >
+                        Logout
+                    </button>
+                </form>
+            </li>
+        @else <!-- Show these links ONLY if user is NOT logged in -->
+            <li><a href="{{ route('login') }}" class="nav-link">Login</a></li>
+        @endauth
     </ul>
     <h1>Welcome</h1>
     <p>Selamat Datang Di halaman Dashboard di website inventory barang</p>
