@@ -9,7 +9,6 @@ use App\Models\layanan_siswa;
 
 class PeminjamanController extends Controller
 {
-    // Show the form to create a new peminjaman
     public function create()
     {
         $barang = layanan_barang::all();  // Get all barang (items)
@@ -52,12 +51,5 @@ class PeminjamanController extends Controller
             $peminjaman->save();
             $newId++;
         }
-
-        // Reset AUTO_INCREMENT value
-        \DB::statement("ALTER TABLE layanan_peminjaman AUTO_INCREMENT = $newId");
-
-        // Redirect or return response
-        return redirect()->route('viewPeminjaman')->with('success', 'Peminjaman deleted and IDs updated!');
     }
 }
-
